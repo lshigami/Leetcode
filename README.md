@@ -1,7 +1,8 @@
 # My LeetCode Solutions
 
 This repository contains my solutions to various problems on [LeetCode](https://leetcode.com/).
-![Uploading image.png…]()
+![image](https://github.com/lshigami/Leetcode/assets/135859127/e88ce866-c167-472f-b5ad-28060651c76e)
+
 
 ## About Me
 
