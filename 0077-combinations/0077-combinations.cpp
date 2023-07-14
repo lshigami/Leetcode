@@ -24,8 +24,8 @@ public:
             temp.push_back(v[i]);
             if(temp.size()==k){
                 vt.push_back(temp);
-                cnt++;
-                if(cnt==n) return;
+              //  cnt++;
+             //   if(cnt==n) return;
             }
             else Try(vt,v,temp,n,k,i+1,cnt);
             temp.pop_back();
