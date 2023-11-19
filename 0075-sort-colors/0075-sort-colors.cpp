@@ -13,14 +13,30 @@ public:
     
     //Selection Sort
 
-    void sortColors(vector<int>& a){
-             int n=a.size();
-        for(int i=0;i<n-1;i++){
-            int minidx=i;
-            for(int j=i+1;j<n;j++){
-                if(a[j]<a[minidx]) minidx=j;
-            }
-            swap(a[i],a[minidx]);
-        }
-    }
+    // void sortColors(vector<int>& a){
+    //          int n=a.size();
+    //     for(int i=0;i<n-1;i++){
+    //         int minidx=i;
+    //         for(int j=i+1;j<n;j++){
+    //             if(a[j]<a[minidx]) minidx=j;
+    //         }
+    //         swap(a[i],a[minidx]);
+    //     }
+    // }
+    
+    // Insertion Sort
+    
+     void sortColors(vector<int>& a){
+         int n=a.size();
+         for(int i=1;i<n;i++){
+             int pos=i-1;
+             int val=a[i];
+             while(pos>=0 && a[pos]>val){
+                 a[pos+1]=a[pos];
+                 pos--;
+             }
+             a[pos+1]=val;
+         }
+     }
+    
 };
