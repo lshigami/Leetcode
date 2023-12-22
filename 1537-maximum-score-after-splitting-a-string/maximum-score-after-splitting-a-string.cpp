@@ -2,7 +2,6 @@ class Solution {
 public:
     int maxScore(string s) {
         int count_one=count(s.begin(),s.end(),'1');
-        if(count_one==0) return s.size()-1;
         int count_zero=0;
         int ans=INT_MIN;
         for(int i=0;i<s.size()-1;i++){
