@@ -18,7 +18,7 @@ public:
         return ans;
     }
     void Sum(TreeNode*root,vector<vector<int>>&ans,vector<int>&v,int target){
-        if(root!=nullptr){
+        if(root!=nullptr ){
             v.push_back(root->val);
             if(root->left==nullptr && root->right==nullptr && root->val==target){
                 ans.push_back(v);
