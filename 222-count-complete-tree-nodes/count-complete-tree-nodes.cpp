@@ -12,7 +12,6 @@
 class Solution {
 public:
     int countNodes(TreeNode* root) {
-        // if(root==nullptr) return 0;
         return (root==nullptr) ? 0 : 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
