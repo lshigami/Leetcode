@@ -18,9 +18,9 @@ private:
         if(!leftBranch || !rightBranch)
             return false;
         
-        return DFSCheck(leftBranch->left, rightBranch->right)
+        return (leftBranch->val == rightBranch->val)  && DFSCheck(leftBranch->left, rightBranch->right)
                 && DFSCheck(leftBranch->right, rightBranch->left)
-                && (leftBranch->val == rightBranch->val);
+                 ;
     }
 public:
     bool isSymmetric(TreeNode* root) {
