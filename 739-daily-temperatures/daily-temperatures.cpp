@@ -1,26 +1,30 @@
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
-        vector<int> temp(temperatures.size(), 0);
-        stack<pair<int, int>> st;
-        
-        st.push({0, temperatures[0]});
-        
-        for(int i=1; i<temperatures.size(); i++){
-            pair<int, int> now = st.top();
-            
-            while(!st.empty() && temperatures[i] > now.second){
-                temp[now.first] = i - now.first; 
-                st.pop();
-                
-                if(!st.empty()) {
-                    now = st.top();
+        deque<int> deque;
+
+        vector<int> res(temperatures.size(), 0);
+
+        for (int i = temperatures.size() - 1; i >= 0; --i) {
+            if (deque.empty()) {
+                deque.push_front(i);
+                res[i] = 0;
+            } else {
+                while (!deque.empty() &&
+                       temperatures[i] >= temperatures[deque.front()]) {
+                    deque.pop_front();
                 }
+
+                if (deque.empty()) {
+                    res[i] = 0;
+                } else {
+                    res[i] = deque.front() - i;
+                }
+
+                deque.push_front(i);
             }
-            
-            st.push({i, temperatures[i]});
         }
-        
-        return temp;
+
+        return res;
     }
 };
