@@ -1,7 +1,7 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int dp[n+5];
+        int dp[n+2];
         dp[0]=0;
         dp[1]=1;
         dp[2]=2;
