@@ -1,24 +1,14 @@
 class Solution {
 public:
     int minimumLength(string s) {
-        if(s.size()==1) return 1;
-        int left = 0;
-        int right = s.size() - 1;
-        while (left <= right) {
-            if(s[left]==s[right] && left!=right){
-                char a = s[left];
-                while (left <s.size() && s[left] == a) left += 1;
-                while (right >=0 && s[right]==a) {
-                    right-=1;
-                    s.pop_back();
-                }
-            }
-            else {
-                return right-left+1;
-            }
+        int l = 0, r = s.size() - 1;
+        while (l < r && s[l] == s[r]) {
+            char c = s[l];
+            while (l <= r && s[l] == c)
+                l++;
+            while (l <= r && s[r] == c)
+                r--;
         }
-        return 0;
+        return r - l + 1;
     }
 };
-
-//cbc
