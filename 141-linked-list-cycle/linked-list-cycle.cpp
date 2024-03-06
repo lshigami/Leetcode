@@ -9,12 +9,11 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        unordered_map<ListNode*,bool>m;
-        while(head){
-            if(!m[head]) m[head]=true;
-            else return true;
+        if(head==nullptr) return false;
+        for(int i=0;i<=100000;i++){
+            if(head && head->next==nullptr) return false;
             head=head->next;
         }
-        return false;
+        return true;
     }
 };
