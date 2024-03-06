@@ -10,7 +10,7 @@ class Solution {
 public:
     bool hasCycle(ListNode *head) {
         if(head==nullptr) return false;
-        for(int i=0;i<=100000;i++){
+        for(int i=0;i<=10000+1;i++){
             if(head && head->next==nullptr) return false;
             head=head->next;
         }
