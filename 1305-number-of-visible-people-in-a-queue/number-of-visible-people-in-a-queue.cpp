@@ -1,27 +1,15 @@
 class Solution {
 public:
     vector<int> canSeePersonsCount(vector<int>& v) {
-        unordered_map<int, int> m;
-        for (int i = 0; i < v.size(); i++) m[i] = 0;
-        stack<int> st;
-        for (int i = 0; i < v.size(); i++) {
-            if (st.empty()) st.push(i);
-            else {
-                if (v[i] > v[st.top()]) {
-                    while (!st.empty() && v[i] > v[st.top()]) {
-                        m[st.top()] += 1;
-                        st.pop();
-                    }
-                }
-                if (!st.empty()) {
-                    m[st.top()] += 1;
-                    st.push(i);
-                }else st.push(i);
-            }
-        }
-        vector<int> ans(v.size());
-        for (auto x : m) {
-            ans[x.first] = x.second;
+        vector<int>ans(v.size());
+        stack<int>st;
+        for(int i=v.size()-1;i>=0;i--){
+            while(!st.empty() && v[i]>st.top()){
+                st.pop();
+                ans[i]+=1;
+           } 
+            if(!st.empty()) ans[i]+=1;
+            st.push(v[i]);
         }
         return ans;
     }
