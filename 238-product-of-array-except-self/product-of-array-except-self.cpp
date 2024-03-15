@@ -8,6 +8,13 @@ public:
             prefi[i]=prefi[i-1]*v[i-1];
             prela[i]=prela[i-1]*v[n-i];
         }
+        for(auto x:prefi){
+            cout<<x<<" ";
+        }
+        cout<<endl;
+        for(auto x:prela){
+            cout<<x<<" ";
+        }
         vector<int>ans(n,1);
         for(int i=0;i<n;i++){
             ans[i]=prefi[i]*prela[n-i-1];
