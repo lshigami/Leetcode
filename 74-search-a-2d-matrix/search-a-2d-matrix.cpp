@@ -5,7 +5,7 @@ public:
         int m = matrix.size(), n = matrix[0].size();
         int left = 0, right = m * n - 1;
         while(left <= right){
-            int mid = left + (right - left) / 2;
+            int mid = (left+right) / 2;
             int mid_value = matrix[mid / n][mid % n];
             if(mid_value == target){
                 return true;
