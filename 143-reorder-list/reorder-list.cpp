@@ -1,27 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     void reorderList(ListNode* head) {
         if ((!head) || (!head->next) || (!head->next->next)) return; // Edge cases
-        
-        stack<ListNode*> my_stack;
-        ListNode* ptr = head;
-        int size = 0;
-        while (ptr != NULL) // Put all nodes in stack
-        {
-            my_stack.push(ptr);
-            size++;
-            ptr = ptr->next;
+
+        ListNode*runner=head;
+        stack<ListNode*>st;
+        while(runner){
+            st.push(runner);
+            runner=runner->next;
         }
-        
-        ListNode* pptr = head;
-        for (int j=0; j<size/2; j++) // Between every two nodes insert the one in the top of the stack
-        {
-            ListNode *element = my_stack.top();
-            my_stack.pop();
-            element->next = pptr->next;
-            pptr->next = element;
-            pptr = pptr->next->next;
+        int size=st.size();
+        runner=head;
+        for(int i=0;i<size/2;i++){
+            st.top()->next=runner->next;
+            runner->next=st.top();
+            runner=runner->next->next;
+            st.pop();
         }
-        pptr->next = NULL;
+        runner->next=NULL;
     }
 };
