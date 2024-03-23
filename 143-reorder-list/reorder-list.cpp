@@ -11,7 +11,7 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        if ((!head) || (!head->next) || (!head->next->next)) return; // Edge cases
+        if ((!head) || (!head->next)) return; // Edge cases
 
         ListNode*runner=head;
         stack<ListNode*>st;
