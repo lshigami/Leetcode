@@ -1,31 +1,23 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
-        if(root==nullptr) return true;
-        TreeNode*prev=nullptr;
-        stack<TreeNode*>st;
-        while(!st.empty() || root){
-            while(root){
-                st.push(root);
-                root=root->left;
-            }
-            root=st.top();
-            st.pop();
-            if(prev && prev->val >=root->val) return false;
-            prev=root;
-            root=root->right;
+    bool validate(TreeNode* root, TreeNode* low, TreeNode* high) {
+        // Empty trees are valid BSTs.
+        if (root == nullptr) {
+            return true;
         }
-        return true;
+
+        // The current node's value must be between low and high.
+        if ((low != nullptr and root->val <= low->val) or
+            (high != nullptr and root->val >= high->val)) {
+            return false;
+        }
+
+        // The left and right subtree must also be valid.
+        return validate(root->right, root, high) and
+               validate(root->left, low, root);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return validate(root, nullptr, nullptr);
     }
 };
