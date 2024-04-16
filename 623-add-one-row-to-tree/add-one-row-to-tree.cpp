@@ -13,9 +13,9 @@ class Solution {
 public:
     void DFS(TreeNode*root,int val,int i,int dep){
         if(root==nullptr) return;
-        TreeNode*leftNode= new TreeNode(val,root->left,NULL);
-        TreeNode*rightNode= new TreeNode(val,NULL,root->right);
         if(i==dep-1){
+            TreeNode*leftNode= new TreeNode(val,root->left,NULL);
+            TreeNode*rightNode= new TreeNode(val,NULL,root->right);
             root->left=leftNode;
             root->right=rightNode;
         }
