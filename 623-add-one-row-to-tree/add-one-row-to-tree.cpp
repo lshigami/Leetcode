@@ -1,32 +1,6 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
- * };
- */
+
 class Solution {
 public:
-    void DFS(TreeNode* root, int val, int i, int dep) {
-        if (root == nullptr)
-            return;
-        if (i <= dep - 1) {
-            if (i == dep - 1) {
-                TreeNode* leftNode = new TreeNode(val, root->left, NULL);
-                TreeNode* rightNode = new TreeNode(val, NULL, root->right);
-                root->left = leftNode;
-                root->right = rightNode;
-            }
-            DFS(root->left, val, i + 1, dep);
-            DFS(root->right, val, i + 1, dep);
-        }
-    }
-
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
         if (depth == 1) {
             TreeNode* newnode = new TreeNode(val);
@@ -34,7 +8,28 @@ public:
             root = newnode;
             return root;
         }
-        DFS(root, val, 1, depth);
+        int count=0;
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            count+=1;
+            int n=q.size();
+            for(int i=0;i<n;i++){
+                TreeNode*top=q.front();
+                q.pop();
+                if(count==depth-1){
+                    TreeNode*leftNode= new TreeNode(val,top->left,NULL);
+                    TreeNode*rightNode= new TreeNode(val,NULL,top->right);
+                    top->left=leftNode;
+                    top->right=rightNode;
+                }else{
+                    if(top->left) q.push(top->left);
+                    if(top->right) q.push(top->right);
+                }
+
+            }
+        }
         return root;
     }
 };
+ 
