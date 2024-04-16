@@ -1,73 +1,33 @@
-using ll = long long;
-
 class Solution {
-
 public:
-
     vector<int> assignTasks(vector<int>& servers, vector<int>& tasks) {
-
-        // weight, id
-
         priority_queue<pair<int, int>, vector<pair<int, int>>,
                        greater<pair<int, int>>>
-            free;
-
-        int n = servers.size(), m = tasks.size();
-
-        for (int i = 0; i < n; ++i) {
-
-            free.emplace(servers[i], i);
-
-        }
-
-        // finish time, id
-
-           priority_queue<pair<long long, int>, vector<pair<long long, int>>,
+            server_w_i;
+        priority_queue<pair<int, int>, vector<pair<int, int>>,
                        greater<pair<long long, int>>>
-            busy;
-
-        ll t = 0;
-
-        vector<int> res;
-
+            busy_t_i;
+        long long time = 0;
         int i = 0;
-
-        while (res.size() < m) {
-
-            while (busy.size() && busy.top().first <= t) {
-
-                int id = busy.top().second;
-
-                busy.pop();
-
-                free.emplace(servers[id], id);
-
+        vector<int> res;
+        for (int i = 0; i < servers.size(); i++)
+            server_w_i.push({servers[i], i});
+        while (res.size() < tasks.size()) {
+            while (!busy_t_i.empty() && busy_t_i.top().first <= time) {
+                server_w_i.push(
+                    {servers[busy_t_i.top().second], busy_t_i.top().second});
+                busy_t_i.pop();
             }
-
-            if (free.size()) {
-
-                int id = free.top().second;
-
-                free.pop();
-
-                res.push_back(id);
-
-                busy.emplace((t + tasks[i]), id);
-
-                i++;
-
-                t = max(t, (ll) i);
-
-            } else {
-
-                t = busy.top().first;
-
-            }
-
+            if (server_w_i.size()) {
+                auto ser = server_w_i.top();
+                server_w_i.pop();
+                res.push_back(ser.second);
+                busy_t_i.push({time + tasks[i], ser.second});
+                i += 1;
+                time = max(time, 1ll * i);
+            } else
+                time = busy_t_i.top().first;
         }
-
         return res;
-
     }
-
 };
