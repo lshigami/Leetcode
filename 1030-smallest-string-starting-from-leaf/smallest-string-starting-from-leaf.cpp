@@ -36,7 +36,6 @@ public:
         string ans=res[0];
         for(auto &x:res){
             reverse(x.begin(),x.end());
-          
         }
         return *min_element(res.begin(),res.end());
     }
