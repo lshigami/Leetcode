@@ -34,10 +34,7 @@ public:
         int ans=n;
         for(int i=0;i<n;i++){
             for(int j=i+1;j<n;j++){
-                if(isConnected[i][j] && dsu.Find(i)!=dsu.Find(j) ){
-                    ans-=1;
-                    dsu.Union(i,j);
-                }
+                if(isConnected[i][j] && dsu.Union(i,j) ) ans-=1;
             }
         }
         return ans;
