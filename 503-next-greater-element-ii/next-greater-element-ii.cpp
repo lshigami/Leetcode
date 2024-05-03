@@ -1,23 +1,21 @@
 class Solution {
 public:
-    vector<int> nextGreaterElements(vector<int>& v) {
-        unordered_map<int,int>m;
-        vector<int>ve(v.begin(),v.end());
-        for(auto x:v){
-            ve.push_back(x);
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            nums.push_back(nums[i]);
         }
-        vector<int>ans(v.size());
+        vector<int>res(2*n,-1);
         stack<int>st;
-        for(int i=ve.size()-1;i>=0;i--){
-            while(!st.empty() && ve[st.top()]<=ve[i]) st.pop();
-            if(st.empty()) m[i]=-1; else m[i]=st.top();
+        for(int i=2*n-1;i>=0;i--){
+            while(!st.empty() && nums[st.top()]<=nums[i]) st.pop();
+            if(!st.empty()) res[i]=st.top();
             st.push(i);
         }
-        for(auto x:m) cout<<x.first<<" "<<x.second<<endl;
-        for(int i=0;i<v.size();i++){
-            if(m[i]!=-1) ans[i]=v[m[i]%v.size()];
-            else ans[i]=-1;
+        for(int i=0;i<2*n-1;i++) {
+            if(res[i]!=-1) res[i]=nums[res[i]%n];
         }
-        return ans;
+        res.erase(res.begin()+n,res.end());
+        return res;
     }
 };
