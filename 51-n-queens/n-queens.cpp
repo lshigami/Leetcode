@@ -2,7 +2,7 @@ class Solution {
 public:
     int row[20];
 
-    void Try(vector<vector<string>>&ans,int col[], bool left[], bool right[],int n, int i){
+    void Try(vector<vector<string>>&ans,bool col[], bool left[], bool right[],int n, int i){
         for(int j=0;j<n;j++){
             if(!left[i+j] && !right[n+i-j-1] && !col[j]){
                 col[j]=left[i+j]=right[n+i-j-1]=true;
@@ -26,8 +26,7 @@ public:
     }
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>>ans;
-        int col[20];
-        bool left[20],right[20];
+        bool col[20],left[20],right[20];
         memset(row,false,sizeof(row));
         memset(col,false,sizeof(col));
         memset(left,false,sizeof(left));
