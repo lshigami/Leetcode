@@ -21,17 +21,13 @@ public:
         int remain=0;
         while(!st.empty()){
             int value=st.top()->val*2 +remain;
-            remain=0;
-            remain+=value/10;
+            remain=value/10;
             value=value%10;
             st.top()->val=value;
             ListNode*here=st.top();
             st.pop();
             if(st.empty()){
-                if(remain==0) return here;
-                else {
-                    return new ListNode(remain,here);
-                }
+                return remain==0 ? here : new ListNode(remain,here);
             }
         }
         return head;
