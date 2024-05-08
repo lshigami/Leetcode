@@ -13,7 +13,6 @@ public:
                 s-=v[left++];
             }
             if(right>=k-1) ans=max(ans,sum-s);
-            cout<<s<<" "<<sum-s<<" : ";
         }
         return ans;
     }
