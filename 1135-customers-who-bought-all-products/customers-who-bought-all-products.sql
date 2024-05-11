@@ -1,8 +1,11 @@
-/* Write your T-SQL query statement below */
-DECLARE @counter INT;
-SELECT @counter = COUNT(* ) FROM product;
-
-select customer_id 
-from customer
-group by customer_id
-having count(distinct product_key) = @counter
+# Write your MySQL query statement below
+WITH cte as(
+SELECT distinct customer_id as customer_id
+FROM Customer)
+select cte.customer_id
+from cte
+where not exists (
+    select product_key from product
+    except
+    select distinct product_key from customer where customer_id=cte.customer_id
+)
