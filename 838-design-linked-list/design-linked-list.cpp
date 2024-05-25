@@ -78,8 +78,10 @@ public:
         for(int i=0;i<index-1;i++){
             temp=temp->next;
         }
+        Node*del=temp->next;
         temp->next=temp->next->next;
         size-=1;
+        delete del;
 
     }
 };
