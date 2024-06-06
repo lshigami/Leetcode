@@ -4,14 +4,9 @@ public:
         if(hand.size()%k) return false;
         multiset<int>s;
         for(auto x:hand) s.insert(x);
-        unordered_map<int,int>m;
-        for(auto x:hand){
-            m[x]+=1;
-        }
-        //  2 3 4 6 7 8
         int step=hand.size()/k;
-        while(step){   //            9/3 = 3 step
-            vector<int>temp;   //    1 2 3
+        while(step){   
+            vector<int>temp;  
             temp.push_back(*s.begin());
             s.erase(s.begin());
             for(int i=0;i<k-1 && i< temp.size();i++){
