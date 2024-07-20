@@ -1,29 +1,30 @@
 class Node{
-public:
-    int val;
+    public:
+    int value;
     Node*next;
-    Node(int x){
-        this->val=x;
+    Node(int v){
+        this->value=v;
         this->next=nullptr;
     }
+
 };
 class MyLinkedList {
-    private :
+private:
     Node*head;
-    int size;
+    int size;    
 public:
     MyLinkedList() {
-        this->head=nullptr;
-        this->size=0;
-        }
+        head=nullptr;
+        size=0;
+    }
     
     int get(int index) {
-        if(index<0 || index>=size) return -1;
+       if (index < 0 || index >= size) return -1;
         Node*temp=head;
         for(int i=0;i<index;i++){
             temp=temp->next;
         }
-        return temp->val;
+        return temp->value;
     }
     
     void addAtHead(int val) {
@@ -34,55 +35,47 @@ public:
     }
     
     void addAtTail(int val) {
-        Node* newNode = new Node(val);
-        if (head == nullptr) {
-            head = newNode;
-        } else {
-            Node* temp = head;
-            while (temp->next) {
-                temp = temp->next;
-            }
-            temp->next = newNode;
+        if(head==nullptr) {
+            addAtHead(val);
+            return;
         }
-        size += 1;
+        Node*temp=head;
+        while(temp->next){
+            temp=temp->next;
+        }
+        temp->next=new Node(val);
+        size+=1;
     }
     
     void addAtIndex(int index, int val) {
+        if(index<0 || index>size) return;
+        Node*newNode=new Node(val);
+        Node*temp=head;
         if(index==0) {
             addAtHead(val);
             return;
         }
-        if(index==size) {
-            addAtTail(val);
-            return;
-        }
-        if(index>size) return;
-        Node*temp=head;
-        for(int i=0;i<index-1;i++){
+        for(int i=1;i<index;i++){
             temp=temp->next;
         }
-        Node*newNode=new Node(val);
         newNode->next=temp->next;
         temp->next=newNode;
         size+=1;
     }
     
     void deleteAtIndex(int index) {
-        if(index<0 || index>=size) return;
+        if (index < 0 || index >= size) return ;
         if(index==0) {
             head=head->next;
             size-=1;
             return;
         }
         Node*temp=head;
-        for(int i=0;i<index-1;i++){
+        for(int i=1;i<index;i++){
             temp=temp->next;
         }
-        Node*del=temp->next;
         temp->next=temp->next->next;
         size-=1;
-        delete del;
-
     }
 };
 
