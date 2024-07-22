@@ -1,32 +1,52 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
+private:
+    ListNode* findMiddle(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        ListNode* second = nullptr;
+        ListNode* first = nullptr;
+        ListNode* temp = head;
+        while (head) {
+            second = head->next;
+            head->next = first;
+            first = head;
+            head = second;
+        }
+        return first;
+    }
+
+    void mergeLists(ListNode* first, ListNode* second) {
+        ListNode* tmp;
+        while (second->next != NULL) {
+            tmp = first->next;
+            first->next = second;
+            first = tmp;
+            tmp = second->next;
+            second->next = first;
+            second = tmp;
+        }
+    }
+
 public:
     void reorderList(ListNode* head) {
-        if ((!head) || (!head->next)) return; // Edge cases
+        if (head == NULL || head->next == NULL)
+            return;
 
-        ListNode*runner=head;
-        stack<ListNode*>st;
-        while(runner){
-            st.push(runner);
-            runner=runner->next;
-        }
-        int size=st.size();
-        runner=head;
-        for(int i=0;i<size/2;i++){
-            st.top()->next=runner->next;
-            runner->next=st.top();
-            runner=runner->next->next;
-            st.pop();
-        }
-        runner->next=NULL;
+        // Tìm điểm giữa của danh sách liên kết
+        ListNode* middle = findMiddle(head);
+
+        // Đảo ngược nửa sau của danh sách
+        ListNode* secondHalf = reverseList(middle);
+
+        // Trộn hai nửa danh sách
+        mergeLists(head, secondHalf);
     }
 };
