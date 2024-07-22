@@ -1,27 +1,32 @@
 class MinStack {
-    vector<int>st;
-    vector<int>ms;
+    vector<int> st; // Stack chính để lưu các giá trị
+    vector<int> ms; // Stack lưu giá trị tối thiểu tại mỗi bước
+
 public:
     MinStack() {
     
     }
+
     void push(int val) {
-        if(ms.empty() || st[ms.back()]>=val) ms.push_back(st.size());
         st.push_back(val);
-    }
-    void pop() {
-        if(st.back()==st[ms.back()]) {
-            ms.pop_back();
+        if (ms.empty() || val <= ms.back()) {
+            ms.push_back(val);
+        } else {
+            ms.push_back(ms.back());
         }
-        st.pop_back();
     }
-    
+
+    void pop() {
+        st.pop_back();
+        ms.pop_back();
+    }
+
     int top() {
         return st.back();
     }
-    
+
     int getMin() {
-        return st[ms.back()];
+        return ms.back();
     }
 };
 
