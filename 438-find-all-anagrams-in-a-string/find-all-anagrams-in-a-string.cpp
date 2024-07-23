@@ -1,21 +1,22 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        map<char,int>m;
-        for(auto x:p) m[x]+=1;
-        int k=p.size(); // size of window
-        vector<int>ans;
-        map<char,int>temp;
+        map<char,int>mapP;
+        map<char,int>mapS;
+        int k=p.size();
+        for(auto x:p) mapP[x]+=1;
         int left=0;
-        for(int i=0;i<k;i++){
-            temp[s[i]]+=1;
+        for(int right=0;right<k;right++){
+            mapS[s[right]]+=1;
         }
-        if(m==temp) ans.push_back(0);
-        for(int i=k;i<s.size();i++){
-           temp[s[i]]+=1;
-           if(temp[s[left]]==1) temp.erase(s[left++]);
-           else temp[s[left++]]-=1;
-           if(temp==m) ans.push_back(left);
+        vector<int>ans;
+        if(mapS==mapP) ans.push_back(left);
+        for(int right=k;right<s.size();right+=1){
+            mapS[s[right]]+=1;
+            if(mapS[s[left]]==1) mapS.erase(s[left]);
+            else mapS[s[left]]-=1;
+            left+=1;
+            if(mapS==mapP) ans.push_back(left);
         }
         return ans;
     }
