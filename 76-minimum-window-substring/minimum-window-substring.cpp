@@ -1,25 +1,36 @@
 class Solution {
 public:
+    bool isGreater(const vector<int>& m1, const vector<int>& m2) {
+        for (int i = 0; i < 128; ++i) {
+            if (m2[i] > 0 && m1[i] < m2[i])
+                return false;
+        }
+        return true;
+    }
+    
     string minWindow(string s, string t) {
-       unordered_map<char,int>m;
-       for(auto x:t) m[x]++;
-       int low=0;
-       int counter=0;
-       int min_length=INT_MAX;
-       int start=0;
-       for(int i=0;i<s.size();i++){
-           if(m[s[i]]>0) counter++;
-           m[s[i]]--;
-           if(counter==t.size()){
-               while(low<i && m[s[low]]<0){
-                   m[s[low++]]++;
-               }
-               if(min_length>i-low+1){
-                   min_length=i-low+1;
-                   start=low;
-               }
-           }
-       }
-       return min_length==INT_MAX ? "": s.substr(start,min_length);
+        vector<int> m1(128, 0), m2(128, 0);
+        int minStart = 0, minLen = INT_MAX;
+        int left = 0;
+        
+        for (char x : t) {
+            m2[x] += 1;
+        }
+        
+        for (int right = 0; right < s.size(); ++right) {
+            m1[s[right]] += 1;
+            while (isGreater(m1, m2)) {
+                int newStringSize = right - left + 1;
+                if (newStringSize < minLen) {
+                    minStart = left;
+                    minLen = newStringSize;
+                }
+                
+                m1[s[left]] -= 1;
+                left += 1;
+            }
+        }
+        
+        return minLen == INT_MAX ? "" : s.substr(minStart, minLen);
     }
 };
