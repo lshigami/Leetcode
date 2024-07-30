@@ -1,9 +1,6 @@
 class Solution {
-    private:
-    int size;
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        size=1*pow(2,nums.size())-1;
         vector<int>cur;
         vector<vector<int>>ans;
         ans.push_back(cur);
@@ -14,7 +11,6 @@ public:
         for(int i=start;i<nums.size();i++){
             cur.push_back(nums[i]);
             ans.push_back(cur);
-            if(ans.size()==size) return;
             backtrack(nums,cur,ans,i+1);
             cur.pop_back();
 
