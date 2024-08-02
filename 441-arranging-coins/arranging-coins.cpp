@@ -7,10 +7,7 @@ public:
         while(left<=right){
             int mid=left+(right-left)/2;
             long long value=1ll*mid*(mid+1)/2;
-            if(value==n){
-                return mid;
-            }
-            else if(value<n){
+            if(value<=n){
                 ans=mid;
                 left=mid+1;
             }
