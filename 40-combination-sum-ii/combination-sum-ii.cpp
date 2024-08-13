@@ -11,16 +11,16 @@ public:
     }
     void backtrack(vector<int>temp,int sum,int index, int target){
         for(int i=index;i<candidates.size();i++){
-            if (i > index && candidates[i] == candidates[i - 1]) continue; 
-            sum+=candidates[i];
-            temp.push_back(candidates[i]);
+            int x=candidates[i];
+            if (i > index && candidates[i] == candidates[i - 1]) continue;
+            sum+=x;
+            temp.push_back(x);
             if(sum==target){
                 res.push_back(temp);
-            }
-            else if(sum<target){
+            }else if(sum<target){
                 backtrack(temp,sum,i+1,target);
             }
-            sum-=candidates[i];
+            sum-=x;
             temp.pop_back();
         }
     }
