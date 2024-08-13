@@ -1,18 +1,20 @@
 class Solution {
 public:
     bool valid(int maxSum, vector<int> nums, int k) {
-        int currentSum = 0, splits = 1;
-        for (int num : nums) {
-            if (currentSum + num > maxSum) {
-                currentSum = num;
-                splits++;
-                if (splits > k)
-                    return false;
-            } else {
-                currentSum += num;
+/*
+Nó kêu mình split k cái, nhưng nếu giả sử chỉ split k-1 thì cũng ok ( vì càng split càng ok)
+*/      
+        int curSum=0,split=1;
+        for(auto x:nums){
+            curSum+=x;
+            if(curSum>maxSum){
+                curSum=x;
+                if(curSum>maxSum) return false;
+                split+=1;
             }
         }
-        return true;
+        return split<=k;
+
     }
     int splitArray(vector<int>& nums, int k) {
         int left = *max_element(nums.begin(), nums.end());
