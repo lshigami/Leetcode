@@ -1,30 +1,37 @@
 class Solution {
 public:
-    string removeKdigits(string s, int k) {
-        if(k==s.size()) return "0";
-        stack<char>st;
-        for(int i=0;i<s.size() ;i++){
-            while(!st.empty() && s[i]<st.top() && k!=0 ){
-                st.pop();
+    string removeKdigits(std::string num, int k) {
+        stack<char> stack;
+
+        for (char digit : num) {
+            // Loại bỏ chữ số lớn hơn chữ số hiện tại và nếu còn có thể loại bỏ
+            while (k > 0 && !stack.empty() && stack.top() > digit) {
+                stack.pop();
                 k--;
             }
-            st.push(s[i]);
+            stack.push(digit);
         }
-        while(!st.empty() && k){
+
+        // Loại bỏ thêm chữ số nếu k > 0
+        while (k > 0 && !stack.empty()) {
+            stack.pop();
             k--;
-            st.pop();
         }
-        string ans="";
-        while(!st.empty()){
-            ans+=st.top();
-            st.pop();
+
+        // Tạo số từ stack
+        std::string result;
+        while (!stack.empty()) {
+            result += stack.top();
+            stack.pop();
         }
-        cout<<ans;
-        for(int i=ans.size()-1;i>=1;i--){
-            if(ans[i]=='0') ans.pop_back();
-            else break;
-        }
-        reverse(ans.begin(),ans.end());
-        return ans;
+
+        // Đảo ngược chuỗi vì stack trả về từ cuối
+        reverse(result.begin(), result.end());
+
+        // Bỏ số '0' đứng đầu
+        auto pos = result.find_first_not_of('0');
+        result = pos == std::string::npos ? "0" : result.substr(pos);
+
+        return result.empty() ? "0" : result;
     }
 };
