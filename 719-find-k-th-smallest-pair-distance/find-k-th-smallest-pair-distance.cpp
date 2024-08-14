@@ -5,21 +5,18 @@ public:
         int arraySize = nums.size();
         int low = 0;
         int high = nums[arraySize - 1] - nums[0];
-
+        int ans=0;
         while (low <= high) {
             int mid = (low + high) / 2;
-
-            // Count pairs with distance <= mid
             int count = countPairsWithMaxDistance(nums, mid);
-
-            // Adjust binary search bounds based on count
             if (count < k) {
                 low = mid + 1;
             } else {
                 high = mid-1;
+                ans=mid;
             }
         }
-        return low;
+        return ans;
     }
 
 private:
