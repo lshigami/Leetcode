@@ -1,17 +1,20 @@
 class Solution {
-public: 
+public:
     string largestNumber(vector<int>& nums) {
-        vector<string>v;
-        for(auto x:nums){
-            v.push_back(to_string(x));
-        }
-        sort(v.begin(),v.end(),[](string a,string b)->bool{
-            return a+b>b+a;
+        // Sắp xếp các số dựa trên thứ tự lớn nhất khi ghép chuỗi
+        sort(nums.begin(), nums.end(), [](int a, int b) {
+            string s1 = to_string(a), s2 = to_string(b);
+            return s1 + s2 > s2 + s1;
         });
-        string ans="";
-        for(auto x:v){
-            ans+=x;
+
+        // Nếu phần tử lớn nhất là 0, trả về "0" để tránh kết quả như "00..."
+        if (nums[0] == 0) return "0";
+
+        string res;
+        for (int num : nums) {
+            res += to_string(num);
         }
-        return ans[0]=='0' ? "0" : ans;
+
+        return res;
     }
 };
