@@ -10,20 +10,13 @@
  * };
  */
 class Solution {
-private:
-    bool DFSCheck(TreeNode* leftBranch, TreeNode* rightBranch)
-    {
-        if(!leftBranch && !rightBranch)
-            return true;
-        if(!leftBranch || !rightBranch)
-            return false;
-        
-        return (leftBranch->val == rightBranch->val)  && DFSCheck(leftBranch->left, rightBranch->right)
-                && DFSCheck(leftBranch->right, rightBranch->left)
-                 ;
-    }
 public:
     bool isSymmetric(TreeNode* root) {
-        return DFSCheck(root->left, root->right);     
+       return DFS(root->left,root->right);
+    }
+    bool DFS(TreeNode*left,TreeNode*right){
+        if(left==nullptr && right==nullptr ) return true;
+        if(left==nullptr || right==nullptr ) return false;
+        return left->val==right->val && DFS(left->left,right->right) && DFS(left->right,right->left);
     }
 };
