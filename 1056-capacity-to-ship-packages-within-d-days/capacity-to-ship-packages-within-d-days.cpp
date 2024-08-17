@@ -16,7 +16,7 @@ public:
     //1 2 2 3 4 4
     int shipWithinDays(vector<int>& weights, int days) {
         // sort(weights.begin(),weights.end());
-        int left=weights[weights.size()-1];
+        int left=0;
         int right=accumulate(weights.begin(),weights.end(),0);
         int minWeight=right;
         while(left<=right){ 
