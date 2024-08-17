@@ -1,17 +1,18 @@
 class Solution {
 public:
     int arrangeCoins(int n) {
-        long long left = 1;
-        long long right = (-1 + sqrt(1 + 8 * (long long)n)) / 2;
-        int ans = 0;
-        while (left <= right) {
-            long long mid = left + (right - left) / 2;
-            long long value = mid * (mid + 1) / 2;
-            if (value <= n) {
-                ans = mid;
-                left = mid + 1;
-            } else {
-                right = mid - 1;
+        int left=1;
+        int right=n;
+        int ans=1;
+        while(left<=right){
+            int stair=left+(right-left)/2;
+            long long needCoin=1ll*stair*(stair+1)/2;
+            if(n>=needCoin){
+                ans=stair;
+                left=stair+1;
+            }
+            else{
+                right=stair-1;
             }
         }
         return ans;
