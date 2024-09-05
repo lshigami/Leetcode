@@ -9,11 +9,10 @@ public:
         int e=needed/n;
         for(int i=1;i<=n;i++) v.push_back(e);
         needed=needed-e*n;
-        for(auto &x:v){
-            if(needed==0) return v;
-            int val=min(6-x,needed);
-            needed-=val;
-            x+=val;
+        int i=0;
+        while(needed){
+            v[i++]+=1;
+            needed-=1;
         }
         return v;
     }
