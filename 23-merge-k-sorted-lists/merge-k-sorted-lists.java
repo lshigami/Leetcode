@@ -1,32 +1,42 @@
+// Definition for singly-linked list.
+// class ListNode {
+//     int val;
+//     ListNode next;
+//     ListNode() {}
+//     ListNode(int val) { this.val = val; }
+//     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+// }
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
+        int amount = lists.length;
+        int interval = 1;
+        while (interval < amount) {
+            for (int i = 0; i < amount - interval; i += interval * 2) {
+                lists[i] = merge2Lists(lists[i], lists[i + interval]);
+            }
+            interval *= 2;
+        }
+        return amount > 0 ? lists[0] : null;
+    }
+
+    public ListNode merge2Lists(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
         ListNode point = head;
-        PriorityQueue<ListNode> queue = new PriorityQueue<>(
-            new Comparator<ListNode>() {
-                @Override
-                public int compare(ListNode o1, ListNode o2) {
-                    if (o1.val > o2.val) {
-                        return 1;
-                    } else if (o1.val == o2.val) {
-                        return 0;
-                    } else {
-                        return -1;
-                    }
-                }
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                point.next = l1;
+                l1 = l1.next;
+            } else {
+                point.next = l2;
+                l2 = l1;
+                l1 = point.next.next;
             }
-        );
-        for (ListNode node : lists) {
-            if (node != null) {
-                queue.add(node);
-            }
-        }
-        while (!queue.isEmpty()) {
-            point.next = queue.poll();
             point = point.next;
-            if (point.next != null) {
-                queue.add(point.next);
-            }
+        }
+        if (l1 == null) {
+            point.next = l2;
+        } else {
+            point.next = l1;
         }
         return head.next;
     }
